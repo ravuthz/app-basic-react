@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import './index.css';
 import { createStore, applyMiddleware } from 'redux';
@@ -11,10 +11,10 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import rootReducer from './rootReducer';
 
-import { userLoggedIn } from './actions/auth'; 
+import { userLoggedIn } from './actions/auth';
 
 const store = createStore(
-    rootReducer, 
+    rootReducer,
     composeWithDevTools(applyMiddleware(thunk))
 );
 
@@ -25,8 +25,7 @@ if (localStorage.getItem('token')) {
 
 ReactDOM.render(
     <BrowserRouter>
-        <Provider store={store}>
-            <App />
+        <Provider store={store}> <Route component={App} />
         </Provider>
     </BrowserRouter>,
     document.getElementById('root'));

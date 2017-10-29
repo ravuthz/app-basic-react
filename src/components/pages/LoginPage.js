@@ -5,20 +5,20 @@ import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 
 class LoginPage extends React.Component {
-    
+
     submit = (data) => {
         console.log("submit: ", data);
         this.props.login(data).then(() => {
-            this.props.history.push('/');
+            this.props.history.push('/dashboard');
         });
     }
-    
+
     render() {
         return (
             <div>
                 <h1>LoginPage</h1>
                 <LoginForm submit={this.submit}></LoginForm>
-            </div>  
+            </div>
         );
     }
 }

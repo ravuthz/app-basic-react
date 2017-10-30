@@ -9,7 +9,7 @@ class LoginPage extends Component {
 
     submit = (data) => {
         console.log("submit: ", data);
-        this.props.login(data).then(() => {
+        return this.props.login(data).then(() => {
             this.props.history.push('/dashboard');
         });
     }

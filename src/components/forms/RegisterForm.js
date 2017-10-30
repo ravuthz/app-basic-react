@@ -8,8 +8,8 @@ import InlineError from '../messages/InlineError';
 class RegisterForm extends Component {
     state = {
         data: {
-            email: '',
-            password: ''
+            email: 'hello1@user.com',
+            password: 'U53R@pass'
         },
         loading: false,
         errors: {}
@@ -47,8 +47,8 @@ class RegisterForm extends Component {
         if (Object.keys(errors).length === 0) {
             console.log("onSubmit: no errors");
             this.setState({ loading: true });
-            this.props.submit(this.state.data);
-            // .catch(err => this.setState({ errors: err.response.data.errors, loading: false }));
+            this.props.submit(this.state.data)
+            .catch(err => this.setState({ errors: err.response.data.errors, loading: false }));
         }
     }
 

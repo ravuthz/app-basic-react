@@ -28,3 +28,10 @@ export const  register = (data) => (dispatch) =>
         localStorage.setItem('token', user.token);
         dispatch(userLoggedIn(user))
     });
+
+export const confirm = (token) => (dispatch) =>
+    api.user.confirm(token).then(user => {
+        console.log("token: ", token);
+        localStorage.setItem('token', user.token);
+        dispatch(userLoggedIn(user));
+    });

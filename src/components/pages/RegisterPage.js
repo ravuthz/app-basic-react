@@ -9,7 +9,7 @@ class RegisterPage extends Component {
 
     submit = (data) => {
         console.log("submit: ", data);
-        this.props.register(data).then(() => {
+        return this.props.register(data).then(() => {
             this.props.history.push('/dashboard');
         });
     }

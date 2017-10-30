@@ -10,14 +10,21 @@ export const userLoggedOut = () => ({
     type: USER_LOGGED_OUT
 });
 
-export const login = (credentails) => (dispatch) => 
+export const login = (credentails) => (dispatch) =>
     api.user.login(credentails).then(user => {
         console.log("credentails: ", credentails);
         localStorage.setItem('token', user.token);
         dispatch(userLoggedIn(user));
     });
-    
+
 export const logout = () => (dispatch) => {
     localStorage.removeItem('token')
     dispatch(userLoggedOut());
 }
+
+export const  register = (data) => (dispatch) =>
+    api.user.register(data).then(user => {
+        console.log("data: ", data);
+        localStorage.setItem('token', user.token);
+        dispatch(userLoggedIn(user))
+    });

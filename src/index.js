@@ -25,7 +25,8 @@ if (localStorage.getItem('token')) {
 
 ReactDOM.render(
     <BrowserRouter>
-        <Provider store={store}> <Route component={App} />
+        <Provider store={store}>
+            <Route component={App} />
         </Provider>
     </BrowserRouter>,
     document.getElementById('root'));

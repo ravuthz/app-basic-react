@@ -1,10 +1,11 @@
-import React from 'react';
-import LoginForm from '../forms/LoginForm';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import LoginForm from '../forms/LoginForm';
 import { login } from '../../actions/auth';
 
-class LoginPage extends React.Component {
+class LoginPage extends Component {
 
     submit = (data) => {
         console.log("submit: ", data);

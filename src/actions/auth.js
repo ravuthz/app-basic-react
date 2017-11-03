@@ -35,3 +35,12 @@ export const confirm = (token) => (dispatch) =>
         localStorage.setItem('token', user.token);
         dispatch(userLoggedIn(user));
     });
+
+export const forgotPassword = ({email }) => () =>
+    api.user.forgotPassword(email);
+
+export const validateToken = (token) => () =>
+    api.user.validateToken(token);
+
+export const resetPassword = (token) => () =>
+    api.user.resetPassword(token);

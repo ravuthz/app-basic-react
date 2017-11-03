@@ -49,7 +49,10 @@ class LoginForm extends React.Component {
             console.log("onSubmit: no errors");
             this.setState({ loading: true });
             this.props.submit(this.state.data)
-                .catch(err => this.setState({ errors: err.response.data.errors, loading: false }));
+                .catch(err => {
+                    console.log("catch err: ", err);
+                    return this.setState({ errors: err.response.data.errors, loading: false });
+                });
         }
 
         console.log(this.state);

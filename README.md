@@ -2162,3 +2162,18 @@ To resolve this:
 ## Something Missing?
 
 If you have ideas for more “How To” recipes that should be on this page, [let us know](https://github.com/facebookincubator/create-react-app/issues) or [contribute some!](https://github.com/facebookincubator/create-react-app/edit/master/packages/react-scripts/template/README.md)
+
+
+
+### ESLint with VS Code
+```
+npm install flow-bin -g
+
+yarn add --dev babel-eslint prettier-eslint
+
+yarn add --dev babel-cli babel-preset-flow
+
+yarn add --dev flow-bin
+
+yarn add prop-types
+```

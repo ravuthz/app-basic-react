@@ -7,29 +7,31 @@ import ForgotPasswordForm from '../forms/ForgotPasswordForm';
 import { forgotPassword } from '../../actions/auth';
 
 class ForgotPasswordPage extends Component {
-    state = {
-        success: false
-    }
+  state = {
+    success: false,
+  };
 
-    submit = (data) => {
-        console.log("submit: ", data);
-        return this.props.forgotPassword(data).then(() => {
-            return this.setState({ success: true });
-        });
-    }
+  submit = (data) => {
+    console.log('submit: ', data);
+    return this.props.forgotPassword(data).then(() => this.setState({ success: true }));
+  };
 
-    render() {
-        const { success } = this.state;
-        return (
-            <div>
-            {success ? <Message>Email has been sent.</Message> : <ForgotPasswordForm submit={this.submit} /> }
-            </div>
-        );
-    }
+  render() {
+    const { success } = this.state;
+    return (
+      <div>
+        {success ? (
+          <Message>Email has been sent.</Message>
+        ) : (
+          <ForgotPasswordForm submit={this.submit} />
+        )}
+      </div>
+    );
+  }
 }
 
 ForgotPasswordPage.propTypes = {
-    submit: PropTypes.func.isRequired,
+  forgotPassword: PropTypes.func.isRequired,
 };
 
 export default connect(null, { forgotPassword })(ForgotPasswordPage);

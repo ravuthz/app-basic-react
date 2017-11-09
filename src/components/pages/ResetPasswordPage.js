@@ -19,12 +19,7 @@ class ResetPasswordPage extends Component {
       .catch(() => this.setState({ loading: false, success: false }));
   }
 
-  submit = (data) => {
-    console.log('submit: ', data);
-    return this.props
-      .resetPassword(data)
-      .then(() => this.props.history.push('/login'));
-  };
+  submit = data => this.props.resetPassword(data).then(() => this.props.history.push('/login'));
 
   render() {
     const { loading, success } = this.state;
@@ -33,8 +28,7 @@ class ResetPasswordPage extends Component {
     return (
       <div>
         {loading && <Message>Loading</Message>}
-        {!loading &&
-          success && <ResetPasswordForm submit={this.submit} token={token} />}
+        {!loading && success && <ResetPasswordForm submit={this.submit} token={token} />}
         {!loading && !success && <Message>Invalid Token</Message>}
       </div>
     );
@@ -54,6 +48,4 @@ ResetPasswordPage.propTypes = {
   }).isRequired,
 };
 
-export default connect(null, { validateToken, resetPassword })(
-  ResetPasswordPage,
-);
+export default connect(null, { validateToken, resetPassword })(ResetPasswordPage);

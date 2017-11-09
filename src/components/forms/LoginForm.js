@@ -1,48 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Form, Button, Message } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Grid, Header, Image, Card, Form, Button, Message } from 'semantic-ui-react';
 import isEmail from 'validator/lib/isEmail';
 
+import logo from '../../logo.svg';
+import BaseEventsForm from './BaseEventsForm';
 import InlineError from '../messages/InlineError';
+import GlobalErrorMessage from '../messages/GlobalErrorMessage';
 
-class LoginForm extends React.Component {
+class LoginForm extends BaseEventsForm {
   state = {
     data: {
       email: 'ravuthz@gmail.com',
       password: '123123',
     },
-    loading: false,
     errors: {},
-  };
-
-  onChange = (e) => {
-    this.setState({
-      data: { ...this.state.data, [e.target.name]: e.target.value },
-    });
-    console.log('onChange: state', this.state.data);
-  };
-
-  onSubmit = (e) => {
-    e.preventDefault();
-
-    const errors = this.validate(this.state.data);
-    this.setState({ errors });
-
-    console.log('onSubmit: has errors');
-
-    if (Object.keys(errors).length === 0) {
-      console.log('onSubmit: no errors');
-      this.setState({ loading: true });
-      this.props.submit(this.state.data).catch((err) => {
-        console.log('catch err: ', err);
-        return this.setState({
-          errors: err.response.data.errors,
-          loading: false,
-        });
-      });
-    }
-
-    console.log(this.state);
+    loading: false,
   };
 
   validate = (data) => {
@@ -63,45 +36,57 @@ class LoginForm extends React.Component {
     const { data, errors, loading } = this.state;
 
     return (
-      <Form onSubmit={this.onSubmit} loading={loading}>
-        {errors.global && (
-          <Message nagative>
-            <Message.Header>Something went wrong</Message.Header>
-            <p>{errors.global}</p>
-          </Message>
-        )}
-        <Form.Field error={!!errors.email}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="ravuthz@gmail.com"
-            value={data.email}
-            onChange={this.onChange}
-          />
-          {errors.email && <InlineError text={errors.email} />}
-        </Form.Field>
-        <Form.Field error={!!errors.password}>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="123123"
-            value={data.password}
-            onChange={this.onChange}
-          />
-          {errors.password && <InlineError text={errors.password} />}
-        </Form.Field>
-        <Button primary>Login</Button>
-      </Form>
+      <Grid textAlign="center" style={{ height: '100%' }} verticalAlign="middle">
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as="h1" color="teal" textAlign="center">
+            <Image src={logo} /> Log-in to System
+          </Header>
+          <Card primary fluid>
+            <Card.Content>
+              <Form size="large" onSubmit={this.onSubmit} loading={loading}>
+                {errors.global && <GlobalErrorMessage errors />}
+                <Form.Field error={!!errors.email}>
+                  <Form.Input
+                    icon="user"
+                    iconPosition="left"
+                    id="email"
+                    type="email"
+                    name="email"
+                    placeholder="ravuthz@gmail.com"
+                    value={data.email}
+                    onChange={this.onChange}
+                  />
+                  {errors.email && <InlineError text={errors.email} />}
+                </Form.Field>
+                <Form.Field error={!!errors.password}>
+                  <Form.Input
+                    icon="lock"
+                    iconPosition="left"
+                    id="password"
+                    type="password"
+                    name="password"
+                    placeholder="123123"
+                    value={data.password}
+                    onChange={this.onChange}
+                  />
+                  {errors.password && <InlineError text={errors.password} />}
+                </Form.Field>
+                <Button.Group fluid>
+                  <Button primary size="large">
+                    Login
+                  </Button>
+                </Button.Group>
+              </Form>
+              <Message>
+                <Link to="/forgot_password">Are you forget your password ?&nbsp;</Link>
+                <Link to="/register">Go to Register.</Link>
+              </Message>
+            </Card.Content>
+          </Card>
+        </Grid.Column>
+      </Grid>
     );
   }
 }
-
-LoginForm.propTypes = {
-  submit: PropTypes.func.isRequired,
-};
 
 export default LoginForm;

@@ -8,6 +8,7 @@ export const userLoggedIn = user => ({
 
 export const userLoggedOut = () => ({
   type: USER_LOGGED_OUT,
+  user: {},
 });
 
 export const login = credentails => dispatch =>

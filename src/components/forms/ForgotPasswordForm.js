@@ -1,47 +1,20 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Form, Button } from 'semantic-ui-react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Grid, Header, Image, Card, Form, Button, Message } from 'semantic-ui-react';
 import isEmail from 'validator/lib/isEmail';
 
+import logo from '../../logo.svg';
+import BaseEventsForm from './BaseEventsForm';
 import InlineError from '../messages/InlineError';
+import GlobalErrorMessage from '../messages/GlobalErrorMessage';
 
-class ForgotPasswordForm extends Component {
+class ForgotPasswordForm extends BaseEventsForm {
   state = {
     data: {
       email: 'ravuthz@gmail.com',
     },
-    loading: false,
     errors: {},
-  };
-
-  onChange = (e) => {
-    this.setState({
-      data: { ...this.state.data, [e.target.name]: e.target.value },
-    });
-    console.log('onChange: state', this.state.data);
-  };
-
-  onSubmit = (e) => {
-    e.preventDefault();
-
-    const errors = this.validate(this.state.data);
-    this.setState({ errors });
-
-    console.log('onSubmit: has errors');
-
-    if (Object.keys(errors).length === 0) {
-      console.log('onSubmit: no errors');
-      this.setState({ loading: true });
-      this.props.submit(this.state.data).catch((err) => {
-        console.log('catch err: ', err);
-        return this.setState({
-          errors: err.response.data.errors,
-          loading: false,
-        });
-      });
-    }
-
-    console.log(this.state);
+    loading: false,
   };
 
   validate = (data) => {
@@ -58,27 +31,43 @@ class ForgotPasswordForm extends Component {
     const { data, errors, loading } = this.state;
 
     return (
-      <Form onSubmit={this.onSubmit} loading={loading}>
-        <Form.Field error={!!errors.email}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="ravuthz@gmail.com"
-            value={data.email}
-            onChange={this.onChange}
-          />
-          {errors.email && <InlineError text={errors.email} />}
-        </Form.Field>
-        <Button primary>Forgot Password</Button>
-      </Form>
+      <Grid textAlign="center" style={{ height: '100%' }} verticalAlign="middle">
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as="h1" color="teal" textAlign="center">
+            <Image src={logo} /> Reset your password
+          </Header>
+          <Card primary fluid>
+            <Card.Content>
+              <Form size="large" onSubmit={this.onSubmit} loading={loading}>
+                {errors.global && <GlobalErrorMessage errors />}
+                <Form.Field error={!!errors.email}>
+                  <Form.Input
+                    icon="lock"
+                    iconPosition="left"
+                    id="email"
+                    type="email"
+                    name="email"
+                    placeholder="ravuthz@gmail.com"
+                    value={data.email}
+                    onChange={this.onChange}
+                  />
+                  {errors.email && <InlineError text={errors.email} />}
+                </Form.Field>
+                <Button.Group fluid>
+                  <Button primary size="large">
+                    Reset Password
+                  </Button>
+                </Button.Group>
+              </Form>
+              <Message>
+                <Link to="/login">Go to Login.</Link>
+              </Message>
+            </Card.Content>
+          </Card>
+        </Grid.Column>
+      </Grid>
     );
   }
 }
-
-ForgotPasswordForm.propTypes = {
-  submit: PropTypes.func.isRequired,
-};
 
 export default ForgotPasswordForm;

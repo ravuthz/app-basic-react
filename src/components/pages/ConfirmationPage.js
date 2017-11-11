@@ -26,7 +26,9 @@ class ConfirmationPage extends Component {
         {loading && (
           <Message icon>
             <Icon name="circle notched" loading />
-            <Message.Header>Validating your email</Message.Header>
+            <Message.Content>
+              <span>Validating your email</span>
+            </Message.Content>
           </Message>
         )}
 
@@ -35,7 +37,7 @@ class ConfirmationPage extends Component {
             <Message icon>
               <Icon name="checkmark" success loading />
               <Message.Content>
-                <Message.Header>Validating your email</Message.Header>
+                <span>Thank you. Your account has been verified.</span>
                 <Link to="/dashboard">Go to your dashboard</Link>
               </Message.Content>
             </Message>

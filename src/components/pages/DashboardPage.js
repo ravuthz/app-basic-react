@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
+import NewBookPage from './books/NewBookPage';
 import WelcomeMessage from '../messages/WelcomeMessage';
 import ConfirmEmailMessage from '../messages/ConfirmEmailMessage';
 
@@ -10,6 +11,7 @@ const DashboardPage = ({ isConfirmed, isAuthenticated }) => (
   <div>
     {!isConfirmed && <ConfirmEmailMessage />}
     {isAuthenticated ? <WelcomeMessage /> : <Redirect to="/login" />}
+    <NewBookPage />
   </div>
 );
 

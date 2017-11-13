@@ -36,4 +36,7 @@ export default {
       return axios.post(url + reset, { data });
     },
   },
+  book: {
+    search: query => axios.get(`${url}/api/books/search?q=${query}`).then(res => res.data.books),
+  },
 };

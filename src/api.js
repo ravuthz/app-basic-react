@@ -1,13 +1,14 @@
 import axios from 'axios';
 
+// export const url = 'http://all-node-ravuthz.c9users.io:8080';
+export const url = 'https://node-api-bookmarker.herokuapp.com';
 export const login = '/api/auth';
 export const register = '/api/users';
 export const confirm = '/api/auth/confirmation';
 export const resetRequest = '/api/auth/reset_password_request';
 export const reset = '/api/auth/reset_password';
 export const validate = '/api/auth/validate_token';
-export const url = 'https://node-api-bookmarker.herokuapp.com';
-// export const url = 'http://all-node-ravuthz.c9users.io:8080';
+export const apiPost = `${url}/api/posts`;
 
 export default {
   user: {
@@ -35,5 +36,13 @@ export default {
       console.log('user.resetPassword');
       return axios.post(url + reset, { data });
     },
+  },
+
+  post: {
+    list: () => axios.get(apiPost).then(res => res.data),
+    find: id => axios.get(`${apiPost}/${id}`).then(res => res.data),
+    create: post => axios.post(apiPost, { post }).then(res => res.data),
+    update: (id, post) => axios.put(`${apiPost}/${id}`, { post }).then(res => res.data),
+    delete: id => axios.delete(`{$apiPost}/${id}`).then(res => res.data),
   },
 };

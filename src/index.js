@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import './index.css';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import decode from 'jwt-decode';
 import App from './App';
@@ -13,6 +13,7 @@ import registerServiceWorker from './registerServiceWorker';
 import rootReducer from './rootReducer';
 
 import { userLoggedIn } from './actions/auth';
+import setAuthorizationHeader from './utils/setAuthorizationHeader';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
@@ -24,6 +25,9 @@ if (localStorage.getItem('token')) {
     email: payload.email,
     confirmed: payload.confirmed,
   };
+
+  setAuthorizationHeader(token);
+
   store.dispatch(userLoggedIn(user));
 }
 

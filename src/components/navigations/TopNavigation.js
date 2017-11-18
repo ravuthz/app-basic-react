@@ -12,12 +12,15 @@ const TopNavigation = ({ user, logout }) => (
   <div style={{ marginBottom: '50.73px' }}>
     <Menu fixed="top" inverted>
       <Container>
-        <Menu.Item as={Link} to="/dashboard" header>
+        <Menu.Item as={Link} to="/adminz" header>
           <Image size="mini" src={logo} style={{ marginRight: '1.5em' }} />
           Project Name
         </Menu.Item>
-        <Menu.Item as={Link} to="/dashboard/posts">
+        <Menu.Item as={Link} to="/adminz/posts">
           Posts
+        </Menu.Item>
+        <Menu.Item as={Link} to="/adminz/users">
+          Users
         </Menu.Item>
         <Dropdown item simple text="Dropdown">
           <Dropdown.Menu>

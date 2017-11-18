@@ -1,9 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Form, Button } from 'semantic-ui-react';
-
-import api from '../../api';
 
 import InlineError from '../messages/InlineError';
 import BaseEventsForm from '../forms/BaseEventsForm';
@@ -18,30 +14,10 @@ class PostForm extends BaseEventsForm {
     loading: false,
   };
 
-  componentDidMount() {
-    console.log('componentDidMount', this.state);
-
-    const id = this.props.postId;
-    if (id) {
-      api.post.find(this.props.postId).then(
-        (res) => {
-          console.log('res: ', res);
-          this.setState({
-            data: res.data,
-          });
-        },
-        (err) => {
-          console.log('err: ', err);
-          this.setState({
-            errors: err,
-          });
-        },
-      );
-    }
-  }
-
-  componentWillReceiveProps() {
-    console.log('componentWillReceiveProps: ', this.props);
+  componentWillReceiveProps(nextProp) {
+    this.setState({
+      data: nextProp.post,
+    });
   }
 
   validate = (data) => {
@@ -54,6 +30,7 @@ class PostForm extends BaseEventsForm {
     if (!data.content) {
       errors.content = "Can't be blank";
     }
+
     return errors;
   };
 
@@ -62,6 +39,18 @@ class PostForm extends BaseEventsForm {
 
     return (
       <Form size="large" onSubmit={this.onSubmit} loading={loading} noValidate="true">
+        <Form.Field
+          label="Title"
+          control="input"
+          required
+          id="title"
+          name="title"
+          error={errors.title}
+          value={data.title}
+          onChange={this.onChange}
+          placeholder="Enter your title ..."
+        />
+
         <Form.Field error={!!errors.title}>
           <Form.Input
             required
@@ -97,11 +86,4 @@ class PostForm extends BaseEventsForm {
   }
 }
 
-// PostForm.propTypes = {
-//   post: PropTypes.shape({
-//     title: PropTypes.string.isRequired,
-//     content: PropTypes.string.isRequired,
-//   }),
-// };
-
-export default connect(null, null)(PostForm);
+export default PostForm;

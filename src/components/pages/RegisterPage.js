@@ -8,7 +8,7 @@ import { register } from '../../actions/auth';
 class RegisterPage extends Component {
   submit = data =>
     this.props.register(data).then(() => {
-      this.props.history.push('/dashboard');
+      this.props.history.push('/adminz');
     });
 
   render() {

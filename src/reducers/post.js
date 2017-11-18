@@ -1,14 +1,24 @@
-import { POST_LISTED, POST_SHOWN, POST_CREATED, POST_UPDATED, POST_DELETED } from '../types';
+import {
+  POST_NEW,
+  POST_CREATE,
+  POST_LIST,
+  POST_FIND,
+  POST_EDIT,
+  POST_UPDATE,
+  POST_DELETE,
+} from '../types';
 
 export default function post(state = {}, action = {}) {
   switch (action.type) {
-    case POST_LISTED:
+    case POST_LIST:
       return action.posts;
 
-    case POST_SHOWN:
-    case POST_CREATED:
-    case POST_UPDATED:
-    case POST_DELETED:
+    case POST_NEW:
+    case POST_CREATE:
+    case POST_FIND:
+    case POST_EDIT:
+    case POST_UPDATE:
+    case POST_DELETE:
       return action.post;
 
     default:

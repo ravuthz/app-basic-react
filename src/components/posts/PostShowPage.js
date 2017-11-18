@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { findPost } from '../../actions/post';
 import PageHeader from '../partials/PageHeader';
 
-class ShowPostPage extends Component {
+class PostShowPage extends Component {
   componentWillMount = () => {
     this.props.detail(this.props.match.params.id).then((res) => {
       console.log('res: ', res);
@@ -21,7 +21,7 @@ class ShowPostPage extends Component {
   }
 }
 
-ShowPostPage.propTypes = {
+PostShowPage.propTypes = {
   detail: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -33,4 +33,4 @@ ShowPostPage.propTypes = {
   // }).isRequired,
 };
 
-export default connect(null, { detail: findPost })(ShowPostPage);
+export default connect(null, { detail: findPost })(PostShowPage);

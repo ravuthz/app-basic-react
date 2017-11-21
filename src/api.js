@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-// export const url = 'http://all-node-ravuthz.c9users.io:8080';
-export const url = 'https://node-api-bookmarker.herokuapp.com';
+export const url = 'http://all-node-ravuthz.c9users.io:8080';
+// export const url = 'https://node-api-bookmarker.herokuapp.com';
+// export const url = 'https://sails-oauth-two-api.herokuapp.com';
 export const login = '/api/auth';
 export const register = '/api/users';
 export const confirm = '/api/auth/confirmation';
@@ -36,6 +37,10 @@ export default {
       console.log('user.resetPassword');
       return axios.post(url + reset, { data });
     },
+  },
+
+  auth: {
+    token: data => axios.post(`${url}/oauth/token`, data).then(res => res.data),
   },
 
   post: {

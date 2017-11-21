@@ -3,10 +3,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import LoginForm from '../forms/LoginForm';
-import { login } from '../../actions/auth';
+import { token } from '../../actions/auth';
 
 class LoginPage extends Component {
-  submit = data => this.props.login(data).then(() => this.props.history.push('/adminz'));
+  submit = (data) => {
+    console.log('data: ', data);
+    return this.props
+      .login({
+        client_id: 'HVM5KD3195',
+        client_secret: 'FBR6h8ZuWuJEcPfjeQytviz1RGUOfN',
+        grant_type: 'password',
+        username: data.email,
+        password: data.password,
+      })
+      .then(() => this.props.history.push('/adminz'));
+  };
 
   render() {
     return (
@@ -24,4 +35,4 @@ LoginPage.propTypes = {
   }).isRequired,
 };
 
-export default connect(null, { login })(LoginPage);
+export default connect(null, { login: token })(LoginPage);

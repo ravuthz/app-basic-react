@@ -13,6 +13,24 @@ export const userLoggedOut = () => ({
   user: {},
 });
 
+export const token = data => dispatch =>
+  api.auth.token(data).then((tokens) => {
+    console.log('data: ', data);
+    console.log('user: ', tokens);
+
+    const accessToken = tokens.access_token;
+    const user = JSON.stringify({
+      token: accessToken,
+      email: data.username,
+      confirmed: true,
+    });
+
+    localStorage.setItem('token', accessToken);
+    localStorage.setItem('user', user);
+    setAuthorizationHeader(accessToken);
+    dispatch(userLoggedIn(user));
+  });
+
 export const login = credentails => dispatch =>
   api.user.login(credentails).then((user) => {
     console.log('credentails: ', credentails);

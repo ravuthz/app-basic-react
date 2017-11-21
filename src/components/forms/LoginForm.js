@@ -11,12 +11,37 @@ import GlobalErrorMessage from '../messages/GlobalErrorMessage';
 class LoginForm extends BaseEventsForm {
   state = {
     data: {
-      email: 'ravuthz@gmail.com',
-      password: '123123',
+      email: 'adminz@gmail.com',
+      password: 'password',
     },
     errors: {},
     loading: false,
   };
+
+  // onSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   const errors = this.validate(this.state.data);
+  //   this.setState({ errors });
+
+  //   if (Object.keys(errors).length === 0) {
+  //     this.setState({ loading: true });
+  // this.props.submit(this.state.data).then(
+  //   () => {
+  //     this.setState({
+  //       errors: null,
+  //       loading: false,
+  //     });
+  //   },
+  //   (err) => {
+  //     this.setState({
+  //       errors: err.response.data.errors,
+  //       loading: false,
+  //     });
+  //   },
+  // );
+  //   }
+  // };
 
   validate = (data) => {
     const errors = {};

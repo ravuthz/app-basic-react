@@ -7,7 +7,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import decode from 'jwt-decode';
+// import decode from 'jwt-decode';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import rootReducer from './rootReducer';
@@ -18,17 +18,17 @@ import setAuthorizationHeader from './utils/setAuthorizationHeader';
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 if (localStorage.getItem('token')) {
+  const user = localStorage.getItem('user');
   const token = localStorage.getItem('token');
-  const payload = decode(token);
-  const user = {
-    token,
-    email: payload.email,
-    confirmed: payload.confirmed,
-  };
+  // const payload = decode(token);
+  // const user = {
+  //   token,
+  //   email: payload.email,
+  //   confirmed: payload.confirmed,
+  // };
 
   setAuthorizationHeader(token);
-
-  store.dispatch(userLoggedIn(user));
+  store.dispatch(userLoggedIn(JSON.parse(user)));
 }
 
 ReactDOM.render(

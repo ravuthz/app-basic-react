@@ -46,8 +46,8 @@ export default {
   post: {
     list: () => axios.get(apiPost).then(res => res.data),
     find: id => axios.get(`${apiPost}/${id}`).then(res => res.data),
-    create: post => axios.post(apiPost, { post }).then(res => res.data),
-    update: (id, post) => axios.put(`${apiPost}/${id}`, { post }).then(res => res.data),
+    create: data => axios.post(apiPost, { data }).then(res => res.data),
+    update: (id, data) => axios.put(`${apiPost}/${id}`, { data }).then(res => res.data),
     delete: id => axios.delete(`{$apiPost}/${id}`).then(res => res.data),
   },
 };

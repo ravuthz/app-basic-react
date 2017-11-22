@@ -4,6 +4,19 @@ import { Link } from 'react-router-dom';
 import { Icon, Menu, Table } from 'semantic-ui-react';
 
 class PostList extends Component {
+  componentDidMount() {
+    console.log('PostList componentDidMount. ', this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('PostList componentWillReceiveProps. ', nextProps);
+  }
+
+  excute = () => {
+    const allPage = Array(this.state.pageCount);
+    this.setState({ allPage });
+  };
+
   tableHeaders = rows => (
     <Table.Row>
       {rows.map((row, index) => <Table.HeaderCell key={index}>{row}</Table.HeaderCell>)}
@@ -54,7 +67,6 @@ class PostList extends Component {
         <Table celled>
           <Table.Header>{this.tableHeaders(headers)}</Table.Header>
           <Table.Body>{this.tableRecords(records)}</Table.Body>
-
           <Table.Footer>{this.tableFooters(footers)}</Table.Footer>
         </Table>
       </div>

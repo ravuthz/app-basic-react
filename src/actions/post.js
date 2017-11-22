@@ -16,57 +16,32 @@ export const defaultState = {
   loading: false,
 };
 
-export const postNew = () => ({
-  type: POST_NEW,
-  post: {},
-});
+export const defaultAction = (type, data) => {
+  console.log(`defaultAction: type => ${type} data => `, data);
+  return { type, data };
+};
 
-export const postCreate = post => ({
-  type: POST_CREATE,
-  post,
-});
+export const defaultListAction = (type, data, page) => {
+  console.log(`defaultListAction: type => ${type} data => `, data);
+  return { type, data, page };
+};
 
-export const postFind = post => ({
-  type: POST_FIND,
-  post,
-});
-
-export const postList = posts => ({
-  type: POST_LIST,
-  posts,
-});
-
-export const postEdit = post => ({
-  type: POST_EDIT,
-  post,
-});
-
-export const postUpdate = post => ({
-  type: POST_UPDATE,
-  post,
-});
-
-export const postDelete = () => ({
-  type: POST_DELETE,
-  post: {},
-});
-
-export const newPost = () => dispatch => dispatch(postNew());
+export const newPost = () => dispatch => dispatch(defaultAction(POST_NEW, null));
 
 export const createPost = post => dispatch =>
-  api.post.create(post).then(res => dispatch(postCreate(res)));
+  api.post.create(post).then(res => dispatch(defaultAction(POST_CREATE, res)));
 
 export const findPost = id => dispatch =>
-  api.post.find(id).then(res => dispatch(postFind(res.data)));
+  api.post.find(id).then(res => dispatch(defaultAction(POST_FIND, res.data)));
 
 export const listPosts = () => dispatch =>
-  api.post.list().then(res => dispatch(postList(res.data)));
+  api.post.list().then(res => dispatch(defaultListAction(POST_LIST, res.data, res.meta)));
 
 export const editPost = id => dispatch =>
-  api.post.find(id).then(res => dispatch(postEdit(res.data)));
+  api.post.find(id).then(res => dispatch(defaultAction(POST_EDIT, res.data)));
 
 export const updatePost = (id, post) => dispatch =>
-  api.post.update(id, post).then(res => dispatch(postUpdate(res)));
+  api.post.update(id, post).then(res => dispatch(defaultAction(POST_UPDATE, res)));
 
 export const deletePost = id => dispatch =>
-  api.post.delete(id).then(res => dispatch(postDelete(res)));
+  api.post.delete(id).then(res => dispatch(defaultAction(POST_DELETE, res)));

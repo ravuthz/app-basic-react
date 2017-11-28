@@ -16,7 +16,14 @@ class ListPostsPage extends Component {
       content: '',
     },
     posts: [],
-    pager: {},
+    pager: {
+      page: 1,
+      perPage: 1,
+      previousPage: 1,
+      nextPage: 1,
+      pageCount: 1,
+      total: 1,
+    },
     loading: true,
     success: false,
   };
@@ -41,7 +48,7 @@ class ListPostsPage extends Component {
         <PageHeader text="Post Listing" />
         <Link to="/dashboard/posts/new">Create new post ??</Link>
         <PostList headers={headers} records={posts} footers={footers} pager={pager} />
-        <Pagination />
+        <Pagination pager={pager} />
       </div>
     );
   }

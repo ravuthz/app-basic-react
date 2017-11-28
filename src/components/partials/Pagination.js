@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 // import { Link } from 'react-router-dom';
 import { Icon, Menu } from 'semantic-ui-react';
 
-export default class Pagination extends Component {
+class Pagination extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      thisPage: 1,
-      nextPage: 2,
-      prevPage: 0,
-      totalPages: 10,
+      thisPage: props.pager.page,
+      nextPage: props.pager.nextPage,
+      prevPage: props.pager.previousPage,
+      totalPages: props.pager.pageCount,
+      totalItems: props.pager.total,
+      pages: this.rangeNumbers(1, props.pager.pageCount),
     };
+
+    // this.setState({
+    //   pages: this.rangeNumbers(1, this.state.totalPages),
+    // });
   }
 
   onNextPage = () => {
     const { nextPage } = this.state;
     if (nextPage) {
+      console.log('next page: ', nextPage);
       this.updatePage(nextPage);
     }
   };
@@ -24,29 +31,40 @@ export default class Pagination extends Component {
   onPrevPage = () => {
     const { prevPage } = this.state;
     if (prevPage) {
+      console.log('prev page: ', prevPage);
       this.updatePage(prevPage);
     }
   };
 
   onGotoPage = (page) => {
     if (page) {
+      console.log(page);
       this.updatePage(page);
     }
   };
 
   updatePage = thisPage => this.setState({ thisPage });
 
+  rangeNumbers = (startNumber, endNumber) => {
+    const list = [];
+    for (let i = startNumber; i <= endNumber; i++) {
+      list.push(i);
+    }
+    return list;
+  };
+
   render() {
-    const { totalPages } = this.state;
+    const { pages } = this.state;
+
     return (
       <Menu floated="right" pagination>
         <Menu.Item as="a" icon onClick={this.onNextPage}>
           <Icon name="left chevron" />
         </Menu.Item>
-        {Array(totalPages).map(index => (
-          <Menu.Item as="a" onClick={this.onGotoPage(index)}>
+        {pages.map(index => (
+          <a className="item" onClick={() => this.onGotoPage(index)}>
             {index}
-          </Menu.Item>
+          </a>
         ))}
         <Menu.Item as="a" icon onClick={this.onPrevPage}>
           <Icon name="right chevron" />
@@ -55,3 +73,16 @@ export default class Pagination extends Component {
     );
   }
 }
+
+Pagination.propTypes = {
+  pager: PropTypes.shape({
+    page: PropTypes.number.isRequired,
+    perPage: PropTypes.number.isRequired,
+    previousPage: PropTypes.number.isRequired,
+    nextPage: PropTypes.number.isRequired,
+    pageCount: PropTypes.number.isRequired,
+    total: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
+export default Pagination;

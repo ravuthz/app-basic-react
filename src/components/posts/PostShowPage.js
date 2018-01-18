@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { findPost } from '../../actions/post';
+import * as postActions from '../../actions/post';
 import PageHeader from '../partials/PageHeader';
 
 class PostShowPage extends Component {
   componentWillMount = () => {
-    this.props.detail(this.props.match.params.id).then((res) => {
+    this.props.showPost(this.props.match.params.id).then((res) => {
       console.log('res: ', res);
     });
   };
@@ -22,7 +22,7 @@ class PostShowPage extends Component {
 }
 
 PostShowPage.propTypes = {
-  detail: PropTypes.func.isRequired,
+  showPost: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -33,4 +33,4 @@ PostShowPage.propTypes = {
   // }).isRequired,
 };
 
-export default connect(null, { detail: findPost })(PostShowPage);
+export default connect(null, { ...postActions })(PostShowPage);

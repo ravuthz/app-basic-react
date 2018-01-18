@@ -26,9 +26,9 @@ const App = ({ location, isAuthenticated }) => (
     <UserRoute location={location} path="/adminz" exact component={DashboardPage} />
 
     <Route location={location} path="/adminz/posts" exact component={PostListPage} />
-    <UserRoute location={location} path="/adminz/posts/new" exact component={PostFormPage} />
-    <UserRoute location={location} path="/adminz/posts/:id/edit" exact component={PostFormPage} />
-    <UserRoute location={location} path="/adminz/posts/:id/show" exact component={PostShowPage} />
+    <Route location={location} path="/adminz/posts/new" exact component={PostFormPage} />
+    <Route location={location} path="/adminz/posts/:id/edit" exact component={PostFormPage} />
+    <Route location={location} path="/adminz/posts/:id/show" exact component={PostShowPage} />
 
     <GuestRoute location={location} path="/login" exact component={LoginPage} />
     <GuestRoute location={location} path="/register" exact component={RegisterPage} />

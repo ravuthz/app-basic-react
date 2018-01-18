@@ -25,14 +25,14 @@ class PostList extends Component {
 
   tableRecords = posts =>
     posts.map(post => (
-      <Table.Row key={post._id}>
+      <Table.Row key={post.id}>
         <Table.Cell>{post.title}</Table.Cell>
         <Table.Cell>{post.userId}</Table.Cell>
         <Table.Cell>
-          <Link to={`/dashboard/posts/${post._id}/edit`}>
+          <Link to={`/adminz/posts/${post.id}/edit`}>
             <Icon size="large" name="edit" />
           </Link>
-          <Link to={`/dashboard/posts/${post._id}/show`}>
+          <Link to={`/adminz/posts/${post.id}/show`}>
             <Icon color="green" size="large" name="unhide" />
           </Link>
         </Table.Cell>

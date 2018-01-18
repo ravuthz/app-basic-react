@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { newPost, createPost, editPost, updatePost } from '../../actions/post';
-
+import * as postActions from '../../actions/post';
 import PageHeader from '../partials/PageHeader';
 import PostForm from './PostForm';
 
@@ -14,15 +14,13 @@ class PostFormPage extends Component {
       content: '',
     },
     title: 'Create new post',
-    loading: true,
-    success: false,
   };
 
   componentDidMount() {
     const { id } = this.props.match.params;
     if (id) {
-      this.props.editPost(id).then((res) => {
-        this.setState({ post: res.post, title: 'Modify existing post' });
+      this.props.showPost(id).then((res) => {
+        this.setState({ post: res.data, title: 'Modify existing post' });
       });
     } else {
       this.props.newPost();
@@ -34,13 +32,16 @@ class PostFormPage extends Component {
     if (id) {
       return this.props
         .updatePost(id, data)
-        .then(() => this.props.history.push('/dashboard/posts'));
+        .then(() => this.props.history.push('/adminz/posts'));
     }
-    return this.props.createPost(data).then(() => this.props.history.push('/dashboard/posts'));
+    return this.props
+      .createPost(data)
+      .then(() => this.props.history.push('/adminz/posts'));
   };
 
   render() {
     const { post, title } = this.state;
+    console.log('this.props: ', this.props);
     return (
       <div>
         <PageHeader text={title} />
@@ -52,8 +53,8 @@ class PostFormPage extends Component {
 
 PostFormPage.propTypes = {
   newPost: PropTypes.func.isRequired,
+  showPost: PropTypes.func.isRequired,
   createPost: PropTypes.func.isRequired,
-  editPost: PropTypes.func.isRequired,
   updatePost: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
@@ -73,9 +74,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, {
-  newPost,
-  createPost,
-  editPost,
-  updatePost,
-})(PostFormPage);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(postActions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostFormPage);

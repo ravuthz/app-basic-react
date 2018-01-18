@@ -1,24 +1,28 @@
-import {
-  POST_NEW,
-  POST_CREATE,
-  POST_LIST,
-  POST_FIND,
-  POST_EDIT,
-  POST_UPDATE,
-  POST_DELETE,
-} from '../types';
+import postConstants from '../constants/post';
 
 export default function post(state = {}, action = {}) {
+  // console.log(action.type, { state, action });
   switch (action.type) {
-    case POST_LIST:
-      return { data: action.data, page: action.page };
-    case POST_NEW:
-    case POST_CREATE:
-    case POST_FIND:
-    case POST_EDIT:
-    case POST_UPDATE:
-    case POST_DELETE:
-      return action.data;
+    case postConstants.LIST_REQUEST:
+    case postConstants.SHOW_SCLIST_REQUEST:
+    case postConstants.CREATE_SCLIST_REQUEST:
+    case postConstants.DELETE_SCLIST_REQUEST:
+    case postConstants.UPDATE_SCLIST_REQUEST:
+      return {};
+
+    case postConstants.LIST_FAILURE:
+    case postConstants.SHOW_FAILURE:
+    case postConstants.CREATE_FAILURE:
+    case postConstants.DELETE_FAILURE:
+    case postConstants.UPDATE_FAILURE:
+      return { data: null, error: action.error };
+
+    case postConstants.LIST_SUCCESS:
+    case postConstants.SHOW_SCLIST_SUCCESS:
+    case postConstants.CREATE_SCLIST_SUCCESS:
+    case postConstants.DELETE_SCLIST_SUCCESS:
+    case postConstants.UPDATE_SCLIST_SUCCESS:
+      return { data: action.data, error: null };
 
     default:
       return state;

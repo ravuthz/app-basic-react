@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { listPosts } from '../../actions/post';
+// import { bindActionCreators } from 'redux';
+import * as postActions from '../../actions/post';
 import PageHeader from '../partials/PageHeader';
 import PostList from './PostList';
 
@@ -30,14 +31,18 @@ class ListPostsPage extends Component {
 
   componentDidMount() {
     console.log('PostListPage mouted');
-    this.props.list().then((res) => {
-      console.log('res', res);
+    this.props.listPosts().then((res) => {
+      console.log('componentDidMount res', res);
       this.setState({
         posts: res.data,
         pager: res.page,
       });
     });
   }
+
+  onPageChange = (page) => {
+    console.log('page: ', page);
+  };
 
   render() {
     const { pager, posts } = this.state;
@@ -46,16 +51,21 @@ class ListPostsPage extends Component {
     return (
       <div>
         <PageHeader text="Post Listing" />
-        <Link to="/dashboard/posts/new">Create new post ??</Link>
+        <Link to="/adminz/posts/new">Create new post ??</Link>
         <PostList headers={headers} records={posts} footers={footers} pager={pager} />
-        <Pagination pager={pager} />
+        <Pagination />
       </div>
     );
   }
 }
 
 ListPostsPage.propTypes = {
-  list: PropTypes.func.isRequired,
+  listPosts: PropTypes.func.isRequired,
 };
 
-export default connect(null, { list: listPosts })(ListPostsPage);
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators(postActions, dispatch);
+// }
+
+// export default connect(null, mapDispatchToProps)(ListPostsPage);
+export default connect(null, { listPosts: postActions.listPosts })(ListPostsPage);

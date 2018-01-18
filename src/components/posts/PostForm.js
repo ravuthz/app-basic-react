@@ -1,6 +1,8 @@
 import React from 'react';
 import { Form, Button } from 'semantic-ui-react';
-
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { Icon } from 'semantic-ui-react'
 import InlineError from '../messages/InlineError';
 import BaseEventsForm from '../forms/BaseEventsForm';
 
@@ -39,17 +41,6 @@ class PostForm extends BaseEventsForm {
 
     return (
       <Form size="large" onSubmit={this.onSubmit} loading={loading} noValidate="true">
-        <Form.Field
-          label="Title"
-          control="input"
-          required
-          id="title"
-          name="title"
-          error={errors.title}
-          value={data.title}
-          onChange={this.onChange}
-          placeholder="Enter your title ..."
-        />
 
         <Form.Field error={!!errors.title}>
           <Form.Input
@@ -78,12 +69,19 @@ class PostForm extends BaseEventsForm {
         </Form.Field>
 
         <Button.Group fluid>
-          <Button content="Back" icon="left arrow" labelPosition="left" />
+          <Button content="Back" icon="left arrow" labelPosition="left" as={Link} to="/adminz/posts" />
           <Button primary content="Save" icon="right arrow" labelPosition="right" />
         </Button.Group>
       </Form>
     );
   }
 }
+
+PostForm.propTypes = {
+  post: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+  }),
+};
 
 export default PostForm;

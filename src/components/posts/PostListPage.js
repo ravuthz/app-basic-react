@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Button } from 'semantic-ui-react';
 
 // import { bindActionCreators } from 'redux';
 import * as postActions from '../../actions/post';
 import PageHeader from '../partials/PageHeader';
 import PostList from './PostList';
 
-import Pagination from '../partials/Pagination';
+// import Pagination from '../partials/Pagination';
 
 class ListPostsPage extends Component {
   state = {
@@ -51,9 +52,8 @@ class ListPostsPage extends Component {
     return (
       <div>
         <PageHeader text="Post Listing" />
-        <Link to="/adminz/posts/new">Create new post ??</Link>
+        <Button content="New Post" as={Link} to="/adminz/posts/new" />      
         <PostList headers={headers} records={posts} footers={footers} pager={pager} />
-        <Pagination />
       </div>
     );
   }
